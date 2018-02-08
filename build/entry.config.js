@@ -23,9 +23,7 @@ function analyzeFile(fileList, dir){
             const stat = fs.statSync(filePath)
             if(stat.isFile()){
                 if(path.extname(filePath) == '.js'){
-                    const p = path.parse(filePath);
-                    const reg = new RegExp(baseDir+'\/?','g')
-                    const fileName = p.dir.replace(reg,'')+'/'+p.name;
+                    const fileName = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
                     entryFiles[fileName] = path.resolve(__dirname,'..', filePath)
                 }
             }else{
@@ -43,8 +41,8 @@ function getHtmlPluginsArr(entryFiles){
             var conf = {
                 env:process.env.NODE_ENV,
                 filename: path.resolve(__dirname, '../dist', fileName),
-                template: path.join(baseDir, fileName),
-                inject: process.env.NODE_ENV === 'production' ? false : true,
+                template: path.join(baseDir, `${entry}/${fileName}`),
+                inject: true,
                 chunks: [entry,'vendor','manifest'],
                 chunksSortMode: 'dependency'
             };
