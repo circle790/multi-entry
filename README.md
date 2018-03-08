@@ -1,4 +1,4 @@
-# multi-in
+# multi-entry
 
 > A Vue.js project
 
