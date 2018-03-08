@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const entryConfig = require('./entry.config')
-
+const webpack = require("webpack")
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -28,6 +28,16 @@ module.exports = {
       '@': resolve('src'),
     }
   },
+  // externals: {
+  //   jquery: 'jQuery'
+  // },
+  plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: "jquery",
+      $: "jquery",
+      'window.jQuery': 'jquery'
+    })
+  ],
   module: {
     rules: [
       {
@@ -45,7 +55,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
+          name: utils.assetsPath('static/[name].[hash:7].[ext]')
         }
       },
       {

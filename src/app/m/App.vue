@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/images/zdy.jpeg">
     <router-view/>
   </div>
 </template>
